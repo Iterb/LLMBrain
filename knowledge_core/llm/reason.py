@@ -42,22 +42,20 @@ class ReasonUnit:
 
         return model(prompt_template)# [0]['generated_text']
     
-    def bottom_level_reason(self, prompt, model, keyword1, keyword2):
+    def bottom_level_reason(self, prompt, model, keyword):
         system_message = f"""
-        Upon receiving a specific term paired with a more general keyword, your task is to extract detailed, 
-        yet concise information related to that specific keywords. 
-        For instance, if the text is about Albert Einstein and the terms provided are "Scientist" and "Albert Einstein," 
-        potential responses could be:
+        Given a text and a contextual term, extract all the concise facts related to the contextual term.
 
-        1. 14 March 1879 - 18 April 1955: German-born theoretical physicist.
-        2. Developed the theory of relativity; contributed to quantum mechanics.
-        3. Received the 1921 Nobel Prize in Physics.
-        
-        Your responses should be brief but rich in detail. List these items in an 
-        enumerated format without extraneous explanations or details. If connecting t
-        he two terms does not make sense or isn't possible with the text, please indicate this clearly. 
-        Always rely solely on the information present in the text.
-        The keywords are: {keyword1}, {keyword2}
+        The answer should follow the list format:
+
+        1. Part(s) of input text used : extracted fact
+        2. Another part(s) of input text used : another fact
+
+        Always rely on the information given in the text. The number of facts is arbitrary, but do not repeat yourself. 
+        If there is nothing in the text about the contextual term just say so. Do not use any of your knowlegde execpt the things you
+        find in the text.
+
+        The contextual term is: {keyword}
         """
         prompt_template=f'''[INST] <<SYS>>
         {system_message}
