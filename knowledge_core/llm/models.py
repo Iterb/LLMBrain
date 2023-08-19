@@ -27,6 +27,9 @@ logging.basicConfig(
 class Model():
     MODEL_ID = "TheBloke/Llama-2-7b-Chat-GPTQ" #"TheBloke/Llama-2-7b-Chat-GPTQ"
     MODEL_BASENAME = "gptq_model-4bit-128g"
+    
+    # MODEL_ID = "TheBloke/Llama-2-13b-Chat-GPTQ" #"TheBloke/Llama-2-7b-Chat-GPTQ"
+    # MODEL_BASENAME = "gptq_model-4bit-128g"
     # model_basename = "gptq_model-4bit-128g"
     
     # def __init__(self, save_directory = "models/llama2"):

@@ -28,6 +28,8 @@ def main():
         print(response)
         response = reasoning_unit.bottom_level_reason(chunk, model, "Elon Musk")
         print(response)
+        response = reasoning_unit.bottom_level_reason(chunk, model, "Coffe")
+        print(response)
         response = reasoning_unit.bottom_level_reason(chunk, model, "Autonomous Systems")
         print(response)
         response = reasoning_unit.bottom_level_reason(chunk, model, "OpenAI")

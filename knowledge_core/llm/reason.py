@@ -44,18 +44,14 @@ class ReasonUnit:
     
     def bottom_level_reason(self, prompt, model, keyword):
         system_message = f"""
-        Given a text and a contextual term, extract all the concise facts related to the contextual term.
+        Given a text and a contextual term {keyword}, extract the list of facts from text that DIRECTLY and STRICTLY describe to the term {keyword}. If a fact does not mention or inherently imply the {keyword}, DO NOT include it. 
 
-        The answer should follow the list format:
-
-        1. Part(s) of input text used : extracted fact
-        2. Another part(s) of input text used : another fact
-
-        Always rely on the information given in the text. The number of facts is arbitrary, but do not repeat yourself. 
-        If there is nothing in the text about the contextual term just say so. Do not use any of your knowlegde execpt the things you
-        find in the text.
-
-        The contextual term is: {keyword}
+        If there is nothing in the text that mentions or inherently implies {keyword}, simply respond with "NOTHING FOUND". 
+        
+        Otherwise, the answer should follow the list format, where the each entry is one fact (extracted from text) about {keyword}.
+        
+        The number of facts is arbitrary, but do not repeat yourself. 
+        Use only the provided text to make your decision, do not rely on any of your external knowledge.
         """
         prompt_template=f'''[INST] <<SYS>>
         {system_message}
