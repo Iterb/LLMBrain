@@ -1,0 +1,7 @@
+# --------- pytorch --------- #
+
+torch==2.0.1
+transformers==4.31.0
+accelerate==0.21.0
+scipy==1.11.1
+langchain==0.0.267
