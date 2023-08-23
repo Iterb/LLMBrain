@@ -1,49 +1,44 @@
-from transformers import AutoTokenizer
-import transformers
-import torch
-from transformers import AutoModelForCausalLM
-from transformers import BitsAndBytesConfig
-
 import logging
 
 import torch
+import transformers
 from auto_gptq import AutoGPTQForCausalLM
-from huggingface_hub import hf_hub_download
 from langchain.llms import HuggingFacePipeline
-
-# from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
-from langchain.vectorstores import Chroma
 from transformers import (
     AutoModelForCausalLM,
     AutoTokenizer,
+    BitsAndBytesConfig,
     GenerationConfig,
     LlamaForCausalLM,
     LlamaTokenizer,
     pipeline,
 )
+
 logging.basicConfig(
-    format="%(asctime)s - %(levelname)s - %(filename)s:%(lineno)s - %(message)s", level=logging.INFO
+    format="%(asctime)s - %(levelname)s - %(filename)s:%(lineno)s - %(message)s",
+    level=logging.INFO,
 )
-class Model():
-    MODEL_ID = "TheBloke/Llama-2-7b-Chat-GPTQ" #"TheBloke/Llama-2-7b-Chat-GPTQ"
-    MODEL_BASENAME = "gptq_model-4bit-128g"
-    
+
+
+class Model:
+    MODEL_ID = "TheBloke/Llama-2-7b-Chat-GPTQ"  # "TheBloke/Llama-2-7b-Chat-GPTQ"
+    MODEL_BASENAME = "model"  # "gptq-4bit-128g-actorder_True"
+
     # MODEL_ID = "TheBloke/Llama-2-13b-Chat-GPTQ" #"TheBloke/Llama-2-7b-Chat-GPTQ"
     # MODEL_BASENAME = "gptq_model-4bit-128g"
     # model_basename = "gptq_model-4bit-128g"
-    
+
     # def __init__(self, save_directory = "models/llama2"):
     #     self.save_directory = save_directory
     #     self.bnb_config = BitsAndBytesConfig(
     #         load_in_4bit=True,
     #         bnb_4bit_compute_dtype=torch.bfloat16,
     #     )
-        
+
     def load_model(self, device_type):
-        """
-        Select a model for text generation using the HuggingFace library.
-        If you are running this for the first time, it will download a model for you.
-        subsequent runs will use the model from the disk.
+        """Select a model for text generation using the HuggingFace library. If you are running
+        this for the first time, it will download a model for you. subsequent runs will use the
+        model from the disk.
 
         Args:
             device_type (str): Type of device to use, e.g., "cuda" for GPU or "cpu" for CPU.
